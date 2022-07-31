@@ -1,4 +1,4 @@
-module github.com/vihuvac/simplebank
+module github.com/vihuvac/simple-bank
 
 go 1.18
 
