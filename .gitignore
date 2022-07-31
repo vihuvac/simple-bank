@@ -1,0 +1,22 @@
+# Binaries for programs and plugins
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Output of the go coverage tool, specifically when used with LiteIDE
+*.out
+
+# Dotenv environment variables file
+.env
+
+# Dependency directories (remove the comment below to include it)
+vendor
+
+# Text editors
+.vscode
+
+# Logs and debugs
+*__debug
+*.log
+*.debug

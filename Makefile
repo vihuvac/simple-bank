@@ -1,0 +1,25 @@
+postgres:
+	docker run --rm --name "postgres14" -p 5432:5432 -e POSTGRES_PASSWORD=postgres -d postgres:14
+
+createdb:
+	docker exec -it postgres14 createdb --username=postgres --owner=postgres simpleBank
+
+dropdb:
+	docker exec -it postgres14 dropdb --username=postgres simpleBank
+
+migrateup:
+#	docker exec -it golang1.18 migrate -path db/migration -database "postgresql://postgres:postgres@host.docker.internal:5432/simpleBank?sslmode=disable" -verbose up
+	migrate -path src/database/migrations -database "postgresql://postgres:postgres@localhost:5432/simpleBank?sslmode=disable" -verbose up
+
+migratedown:
+#	docker exec -it golang1.18 migrate -path db/migration -database "postgresql://postgres:postgres@host.docker.internal:5432/simpleBank?sslmode=disable" -verbose down
+	migrate -path src/database/migrations -database "postgresql://postgres:postgres@localhost:5432/simpleBank?sslmode=disable" -verbose down
+
+sqlc:
+	sqlc generate
+
+test:
+	go test -v -cover ./...
+
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test
