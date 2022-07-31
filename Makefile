@@ -8,11 +8,9 @@ dropdb:
 	docker exec -it postgres14 dropdb --username=postgres simpleBank
 
 migrateup:
-#	docker exec -it golang1.18 migrate -path db/migration -database "postgresql://postgres:postgres@host.docker.internal:5432/simpleBank?sslmode=disable" -verbose up
 	migrate -path src/database/migrations -database "postgresql://postgres:postgres@localhost:5432/simpleBank?sslmode=disable" -verbose up
 
 migratedown:
-#	docker exec -it golang1.18 migrate -path db/migration -database "postgresql://postgres:postgres@host.docker.internal:5432/simpleBank?sslmode=disable" -verbose down
 	migrate -path src/database/migrations -database "postgresql://postgres:postgres@localhost:5432/simpleBank?sslmode=disable" -verbose down
 
 sqlc:
@@ -21,5 +19,8 @@ sqlc:
 test:
 	go test -v -cover ./...
 
+server:
+	go run src/main.go
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test
+
+.PHONY: postgres createdb dropdb migrateup migratedown sqlc test server
