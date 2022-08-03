@@ -10,10 +10,18 @@ dropdb:
 	docker exec -it postgres14 dropdb --username=$(POSTGRES_USER) $(POSTGRES_DB)
 
 migrateup:
+ifdef version
+	migrate -path src/database/migrations -database $(DB_URI) -verbose up $(version)
+else
 	migrate -path src/database/migrations -database $(DB_URI) -verbose up
+endif
 
 migratedown:
+ifdef version
+	migrate -path src/database/migrations -database $(DB_URI) -verbose down $(version)
+else
 	migrate -path src/database/migrations -database $(DB_URI) -verbose down
+endif
 
 sqlc:
 	sqlc generate
