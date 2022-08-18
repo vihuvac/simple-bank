@@ -36,6 +36,10 @@ jobs:
           - 5432:5432
 
     steps:
+      - name: Create reference for the app.env file
+        run: /
+          cp app.env.template app.env
+
       - name: Set up Go 1.19
         uses: actions/setup-go@v3
         with:
