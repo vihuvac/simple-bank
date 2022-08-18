@@ -38,7 +38,7 @@ jobs:
     steps:
       - name: Create reference for the app.env file
         run: |
-          cat <<EOF > app.env
+          cat <<EOF > $HOME/app.env
           # Database settings to work locally.
           # Uncomment and set the respective values for these variables in a `.env` file,
           # these variables will be taken by the `docker-compose.yaml` file to compose the database container.
