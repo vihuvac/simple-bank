@@ -37,7 +37,7 @@ jobs:
 
     steps:
       - name: Create reference for the app.env file
-        run: /
+        run: |
           cp app.env.template app.env
 
       - name: Set up Go 1.19
