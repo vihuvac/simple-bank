@@ -1,13 +1,13 @@
 # include .env
 
 postgres:
-	docker run --rm --name "postgres14" -p 5432:5432 -e POSTGRES_PASSWORD=$(POSTGRES_PASSWORD) -d postgres:14
+	docker run --rm --name "simple-bank-db" -p 5432:5432 -e POSTGRES_PASSWORD=$(POSTGRES_PASSWORD) -d postgres:14-alpine
 
 createdb:
-	docker exec -it postgres14 createdb --username=$(POSTGRES_USER) --owner=$(POSTGRES_USER) $(POSTGRES_DB)
+	docker exec -it simple-bank-db createdb --username=$(POSTGRES_USER) --owner=$(POSTGRES_USER) $(POSTGRES_DB)
 
 dropdb:
-	docker exec -it postgres14 dropdb --username=$(POSTGRES_USER) $(POSTGRES_DB)
+	docker exec -it simple-bank-db dropdb --username=$(POSTGRES_USER) $(POSTGRES_DB)
 
 migrateup:
 ifdef version
