@@ -36,14 +36,6 @@ jobs:
           - 5432:5432
 
     steps:
-      - name: Create the app.env file as reference
-        run: |
-          cat <<EOF > app.env
-          DB_DRIVER=<THE_DB_DRIVER>
-          DB_URI=<THE_DB_URI>
-          EOF
-          which app.env
-
       - name: Set up Go 1.19
         uses: actions/setup-go@v3
         with:
