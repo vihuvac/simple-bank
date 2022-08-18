@@ -36,9 +36,16 @@ jobs:
           - 5432:5432
 
     steps:
+      - name: Set up Go 1.19
+        uses: actions/setup-go@v3
+        with:
+          go-version: 1.19
+
+      - name: Check out code into the Go module directory
+        uses: actions/checkout@v3
+
       - name: Create reference for the app.env file
         run: |
-          touch app.env
           cat <<EOF > app.env
           # Database settings to work locally.
           # Uncomment and set the respective values for these variables in a `.env` file,
@@ -55,14 +62,6 @@ jobs:
           TOKEN_SYMMETRIC_KEY=<THE_TOKEN_SYMMETRIC_KEY>
           TOKEN_DURATION=<THE_TOKEN_DURATION>
           EOF
-
-      - name: Set up Go 1.19
-        uses: actions/setup-go@v3
-        with:
-          go-version: 1.19
-
-      - name: Check out code into the Go module directory
-        uses: actions/checkout@v3
 
       - name: Install golang-migrate
         run: |
