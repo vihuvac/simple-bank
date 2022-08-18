@@ -1,0 +1,34 @@
+version: "3.9"
+services:
+  postgres:
+    container_name: simple-bank-db
+    image: postgres:14-alpine
+    volumes:
+      - postgres_volume:/var/lib/postgresql/data
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: $POSTGRES_PASSWORD
+
+  api:
+    container_name: simple-bank-api
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./src:/app/src
+    ports:
+      - 8080:8080
+      - 6868:6868
+    env_file:
+      - ./.env
+    environment:
+      DB_URI: $DB_URI
+    restart: always
+    depends_on:
+      - postgres
+    entrypoint: [ "/app/wait-for", "postgres:5432", "--", "/app/start.sh" ]
+    command: [ "/app/main" ]
+
+volumes:
+  postgres_volume:

@@ -15,6 +15,8 @@ env:
   DB_URI: ${{secrets.DB_URI}}
   POSTGRES_DB: ${{secrets.POSTGRES_DB}}
   POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
+  TOKEN_DURATION: ${{secrets.TOKEN_DURATION}}
+  TOKEN_SYMMETRIC_KEY: ${{secrets.TOKEN_SYMMETRIC_KEY}}
 
 jobs:
   test:
@@ -25,8 +27,8 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
           POSTGRES_DB: ${{env.POSTGRES_DB}}
+          POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
@@ -36,10 +38,10 @@ jobs:
           - 5432:5432
 
     steps:
-      - name: Set up Go 1.18
+      - name: Set up Go 1.19
         uses: actions/setup-go@v3
         with:
-          go-version: 1.18
+          go-version: 1.19
 
       - name: Check out code into the Go module directory
         uses: actions/checkout@v3

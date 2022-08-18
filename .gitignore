@@ -9,6 +9,7 @@
 
 # Dotenv environment variables file
 !app.env
+!app.env.template
 .env
 
 # Dependency directories (remove the comment below to include it)
