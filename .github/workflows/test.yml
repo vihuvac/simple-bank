@@ -4,19 +4,17 @@ on:
   push:
     branches:
       - development
-      - main
   pull_request:
     branches:
       - development
-      - main
 
 env:
-  DB_DRIVER: ${{secrets.DB_DRIVER}}
-  DB_URI: ${{secrets.DB_URI}}
-  POSTGRES_DB: ${{secrets.POSTGRES_DB}}
-  POSTGRES_PASSWORD: ${{secrets.POSTGRES_PASSWORD}}
-  TOKEN_DURATION: ${{secrets.TOKEN_DURATION}}
-  TOKEN_SYMMETRIC_KEY: ${{secrets.TOKEN_SYMMETRIC_KEY}}
+  DB_DRIVER: ${{ secrets.DB_DRIVER }}
+  DB_URI: ${{ secrets.DB_URI }}
+  POSTGRES_DB: ${{ secrets.POSTGRES_DB }}
+  POSTGRES_PASSWORD: ${{ secrets.POSTGRES_PASSWORD }}
+  TOKEN_DURATION: ${{ secrets.TOKEN_DURATION }}
+  TOKEN_SYMMETRIC_KEY: ${{ secrets.TOKEN_SYMMETRIC_KEY }}
 
 jobs:
   test:
@@ -27,8 +25,8 @@ jobs:
       postgres:
         image: postgres:14
         env:
-          POSTGRES_DB: ${{env.POSTGRES_DB}}
-          POSTGRES_PASSWORD: ${{env.POSTGRES_PASSWORD}}
+          POSTGRES_DB: ${{ env.POSTGRES_DB }}
+          POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
         options: >-
           --health-cmd pg_isready
           --health-interval 10s
