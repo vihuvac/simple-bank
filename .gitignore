@@ -8,7 +8,8 @@
 *.out
 
 # Dotenv environment variables file
-.env
+!app.env
+.env*
 
 # Dependency directories (remove the comment below to include it)
 vendor
