@@ -25,14 +25,15 @@ func NewJWTMaker(secretKey string) (Maker, error) {
 }
 
 // CreateToken creates a new token for a specific username and duration.
-func (maker *JWTMaker) CreateToken(username string, duration time.Duration) (string, error) {
+func (maker *JWTMaker) CreateToken(username string, duration time.Duration) (string, *Payload, error) {
 	payload, err := NewPayload(username, duration)
 	if err != nil {
-		return "", err
+		return "", payload, err
 	}
 
-	token := jwt.NewWithClaims(jwt.SigningMethodHS512, payload)
-	return token.SignedString([]byte(maker.secretKey))
+	jwtToken := jwt.NewWithClaims(jwt.SigningMethodHS512, payload)
+	token, err := jwtToken.SignedString([]byte(maker.secretKey))
+	return token, payload, err
 }
 
 // VerifyToken checks if the token is valid or not.
