@@ -23,6 +23,12 @@ else
 	migrate -path src/database/migrations -database $(DB_URI) -verbose down
 endif
 
+db_docs:
+	dbdocs build docs/database/db.dbml
+
+db_schema:
+	dbml2sql --postgres -o docs/database/schema.sql docs/database/db.dbml
+
 sqlc:
 	sqlc generate
 
@@ -36,4 +42,4 @@ mock:
 	mockgen -build_flags=--mod=mod -package mockdb -destination src/database/mock/store.go github.com/vihuvac/simple-bank/src/database/sqlc Store
 
 
-.PHONY: postgres createdb dropdb migrateup migratedown sqlc test server mock
+.PHONY: postgres createdb dropdb migrateup migratedown db_docs db_schema sqlc test server mock
