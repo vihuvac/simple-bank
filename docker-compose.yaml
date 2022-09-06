@@ -14,7 +14,7 @@ services:
     container_name: simple-bank-api
     build:
       context: .
-      dockerfile: Dockerfile
+      dockerfile: Dockerfile.dev
     volumes:
       - ./src:/app/src
     ports:
@@ -27,8 +27,8 @@ services:
     restart: always
     depends_on:
       - postgres
-    entrypoint: [ "/app/wait-for", "postgres:5432", "--", "/app/start.sh" ]
-    command: [ "/app/main" ]
+    entrypoint: [ "/app/wait-for-2.2.3/wait-for", "postgres:5432", "--", "/app/scripts/start.sh" ]
+    command: [ "air", "server", "--port 8080" ]
 
 volumes:
   postgres_volume:
