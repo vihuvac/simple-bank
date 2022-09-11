@@ -24,6 +24,11 @@ As a good practice it is recommended to work with Docker, the project is very st
 
 - Docker **20.10.0** or **higher**.
 
+> **Heads up**!:
+>
+> In order to keep the API container lightweight in Docker, SQLC and Mockgen are currently executed from their local installments (host machine).
+> To learn more about each of them, just look at the [additional resources](#additional-resources) section.
+
 ## Getting started
 
 Since the project uses _viper_ to manage configurations, it is necessary to set the respective values within the `app.env` file, then create a `.env` file based on the `app.env`, e.g: `cp app.env .env`.
@@ -209,6 +214,16 @@ Terminate/delete the containers and the database volume:
 ```shell
 docker-compose down -v
 ```
+
+> **Note**:
+>
+> Docker compose commands can be invoked within the make shortcuts defined in the _Makefile_, e.g:
+>
+> `make compose_up` is a wildcard of `docker-compose up -d` command.
+>
+> `make compose_down` is a wildcard of `docker-compose down && docker rmi -f simple-bank_api` command.
+>
+> `make compose_down_all` is a wildcard of `docker-compose down -v && docker rmi -f simple-bank_api` command.
 
 ---
 
