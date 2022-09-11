@@ -41,5 +41,14 @@ server:
 mock:
 	mockgen -build_flags=--mod=mod -package mockdb -destination src/database/mock/store.go github.com/vihuvac/simple-bank/src/database/sqlc Store
 
+compose_up:
+	docker-compose up -d
 
-.PHONY: postgres createdb dropdb migrateup migratedown db_docs db_schema sqlc test server mock
+compose_down:
+	docker-compose down && docker rmi -f simple-bank_api
+
+compose_down_all:
+	docker-compose down -v && docker rmi -f simple-bank_api
+
+
+.PHONY: postgres createdb dropdb migrateup migratedown db_docs db_schema sqlc test server mock compose_up compose_down compose_down_all
