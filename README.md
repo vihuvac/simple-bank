@@ -142,7 +142,7 @@ Something like this will be displayed:
 
 ```shell
 CONTAINER ID   IMAGE                COMMAND                  CREATED              STATUS            PORTS                                            NAMES
-25a1dec94949   simple-bank_api      "/app/wait-for-2.2.3…"   About an hour ago   Up About an hour   0.0.0.0:6868->6868/tcp, 0.0.0.0:8080->8080/tcp   simple-bank-api
+25a1dec94949   simple-bank-api      "/app/wait-for-2.2.3…"   About an hour ago   Up About an hour   0.0.0.0:6868->6868/tcp, 0.0.0.0:8080->8080/tcp   simple-bank-api
 ef67401d6d7b   postgres:14-alpine   "docker-entrypoint.s…"   About an hour ago   Up About an hour   0.0.0.0:5432->5432/tcp                           simple-bank-db
 ```
 
@@ -219,11 +219,33 @@ docker-compose down -v
 >
 > Docker compose commands can be invoked within the make shortcuts defined in the _Makefile_, e.g:
 >
-> `make compose_up` is a wildcard of `docker-compose up -d` command.
+> `make composeUp` is a wildcard of `docker-compose up -d` command.
 >
-> `make compose_down` is a wildcard of `docker-compose down && docker rmi -f simple-bank_api` command.
+> `make composeDown` is a wildcard of `docker-compose down && docker rmi -f simple-bank-api` command.
 >
-> `make compose_down_all` is a wildcard of `docker-compose down -v && docker rmi -f simple-bank_api` command.
+> `make composeDownAll` is a wildcard of `docker-compose down -v && docker rmi -f simple-bank-api` command.
+
+### Other useful wildcards to run in development mode:
+
+> **Docker Containers**:
+>
+> `make postgres` is a wildcard to create an isolated container running postgres.
+>
+> `make createDB` is a wildcard to create a new database within the isolated container running postgres.
+>
+> `make dropDB` is a wildcard to delete a database within the isolated container running postgres.
+>
+> **DB Migrations**:
+>
+> `make migrateUp` is a wildcard to run the database migrations, if no version is specified, it will run all the available migrations.
+>
+> `make migrateDown` Unlike the `migrateUp` wildcard, if no version is specified, it will run all the available migrations to revert the database to a previous version.
+>
+> **DB Docs**:
+>
+> `make dbDocs` is a wildcard to generate documentation related to the database (the output will be placed within the `/docs` directory).
+>
+> `make dbSchema` is a wildcard to generate the database schemas (the output will be placed within the `/docs` directory).
 
 ---
 

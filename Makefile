@@ -1,32 +1,39 @@
-# include .env
+ENV_FILE := ./.env
+
+ifeq ($(wildcard $(ENV_FILE)),)
+  $(error $(ENV_FILE) does not exist.)
+else
+	include $(ENV_FILE)
+endif
+
 
 postgres:
 	docker run --rm --name "simple-bank-db" -p 5432:5432 -e POSTGRES_PASSWORD=$(POSTGRES_PASSWORD) -d postgres:14-alpine
 
-createdb:
+createDB:
 	docker exec -it simple-bank-db createdb --username=$(POSTGRES_USER) --owner=$(POSTGRES_USER) $(POSTGRES_DB)
 
-dropdb:
+dropDB:
 	docker exec -it simple-bank-db dropdb --username=$(POSTGRES_USER) $(POSTGRES_DB)
 
-migrateup:
+migrateUp:
 ifdef version
 	migrate -path src/database/migrations -database $(DB_URI) -verbose up $(version)
 else
 	migrate -path src/database/migrations -database $(DB_URI) -verbose up
 endif
 
-migratedown:
+migrateDown:
 ifdef version
 	migrate -path src/database/migrations -database $(DB_URI) -verbose down $(version)
 else
 	migrate -path src/database/migrations -database $(DB_URI) -verbose down
 endif
 
-db_docs:
+dbDocs:
 	dbdocs build docs/database/db.dbml
 
-db_schema:
+dbSchema:
 	dbml2sql --postgres -o docs/database/schema.sql docs/database/db.dbml
 
 sqlc:
@@ -41,14 +48,14 @@ server:
 mock:
 	mockgen -build_flags=--mod=mod -package mockdb -destination src/database/mock/store.go github.com/vihuvac/simple-bank/src/database/sqlc Store
 
-compose_up:
+composeUp:
 	docker-compose up -d
 
-compose_down:
-	docker-compose down && docker rmi -f simple-bank_api
+composeDown:
+	docker-compose down && docker rmi -f simple-bank-api
 
-compose_down_all:
-	docker-compose down -v && docker rmi -f simple-bank_api
+composeDownAll:
+	docker-compose down -v && docker rmi -f simple-bank-api
 
 
-.PHONY: postgres createdb dropdb migrateup migratedown db_docs db_schema sqlc test server mock compose_up compose_down compose_down_all
+.PHONY: postgres createDB dropDB migrateUp migrateDown dbDocs dbSchema sqlc test server mock composeUp composeDown composeDownAll
