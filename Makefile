@@ -1,7 +1,12 @@
+# Useful variables to colorize messages.
+redColor := $(shell tput setaf 1)
+yellowColor := $(shell tput setaf 2)
+resetColor := $(shell tput sgr0)
+
 ENV_FILE := ./.env
 
 ifeq ($(wildcard $(ENV_FILE)),)
-  $(error The file '$(ENV_FILE)' was not found.)
+  $(info $(yellowColor)The file$(resetColor) $(redColor)$(ENV_FILE)$(resetColor) $(yellowColor)was not found.$(resetColor))
 else
 	include $(ENV_FILE)
 endif
