@@ -100,34 +100,44 @@ docker-compose up -d
 Two container will be created, one for the API and one for the database, something like this will be displayed:
 
 ```shell
-Creating network "simple-bank_default" with the default driver
-Creating volume "simple-bank_postgres_volume" with default driver
-Building api
-[+] Building 152.7s (15/15) FINISHED
- => [internal] load build definition from Dockerfile.dev                                                                                                              0.0s
- => => transferring dockerfile: 556B                                                                                                                                  0.0s
- => [internal] load .dockerignore                                                                                                                                     0.0s
- => => transferring context: 2B                                                                                                                                       0.0s
- => [internal] load metadata for docker.io/library/golang:1.19-alpine3.16                                                                                             4.6s
- => [auth] library/golang:pull token for registry-1.docker.io                                                                                                         0.0s
- => [internal] load build context                                                                                                                                     0.1s
- => => transferring context: 97.19kB                                                                                                                                  0.1s
- => [1/9] FROM docker.io/library/golang:1.19-alpine3.16@sha256:0eb08c89ab1b0c638a9fe2780f7ae3ab18f6ecda2c76b908e09eb8073912045d                                       0.0s
- => CACHED [2/9] WORKDIR /app                                                                                                                                         0.0s
- => [3/9] COPY . .                                                                                                                                                    0.1s
- => [4/9] RUN apk --update --no-cache add build-base curl                                                                                                             21.9s
- => [5/9] RUN curl -L https://github.com/eficode/wait-for/archive/refs/tags/v2.2.3.tar.gz | tar xvz                                                                   4.4s
- => [6/9] RUN curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-amd64.tar.gz | tar xvz                                        5.8s
- => [7/9] RUN go install github.com/go-delve/delve/cmd/dlv@v1.9.1                                                                                                     104.6s
- => [8/9] RUN go install github.com/cosmtrek/air@v1.40.4                                                                                                              10.5s
- => [9/9] COPY src/database/migrations ./migrations                                                                                                                   0.0s
- => exporting to image                                                                                                                                                0.5s
- => => exporting layers                                                                                                                                               0.5s
- => => writing image sha256:91e06d514dff7b0f48f13d8e610cdbb0455af132c20dfbf0fc72ccca6688a887                                                                          0.0s
- => => naming to docker.io/library/simple-bank_api                                                                                                                    0.0s
-WARNING: Image for service api was built because it did not already exist. To rebuild this image you must use `docker-compose build` or `docker-compose up --build`.
-Creating simple-bank-db ... done
-Creating simple-bank-api ... done
+[+] Building 57.1s (15/15) FINISHED
+ => [internal] load build definition from Dockerfile.dev                                                                                         0.0s
+ => => transferring dockerfile: 551B                                                                                                             0.0s
+ => [internal] load .dockerignore                                                                                                                0.0s
+ => => transferring context: 2B                                                                                                                  0.0s
+ => [internal] load metadata for docker.io/library/golang:1.20-alpine3.17                                                                        3.0s
+ => [auth] library/golang:pull token for registry-1.docker.io                                                                                    0.0s
+ => [1/9] FROM docker.io/library/golang:1.20-alpine3.17@sha256:08e9c086194875334d606765bd60aa064abd3c215abfbcf5737619110d48d114                  4.4s
+ => => resolve docker.io/library/golang:1.20-alpine3.17@sha256:08e9c086194875334d606765bd60aa064abd3c215abfbcf5737619110d48d114                  0.0s
+ => => sha256:08e9c086194875334d606765bd60aa064abd3c215abfbcf5737619110d48d114 1.65kB / 1.65kB                                                   0.0s
+ => => sha256:7dec57dbf13a5d8274bfc029fc5491d976215a0905c21ec330522f4e90d69e7a 1.16kB / 1.16kB                                                   0.0s
+ => => sha256:f2b3f274864b4ee7cae75f5c59a2d1f78cf4bc8992ff0fd211484b70df1076d9 5.13kB / 5.13kB                                                   0.0s
+ => => sha256:c2ac23d08d88d0780a5e2deff6f705ac18f198652ca7eb10eb7bb09a0c15f48a 96.00MB / 96.00MB                                                 2.5s
+ => => sha256:c41833b44d910632b415cd89a9cdaa4d62c9725dc56c99a7ddadafd6719960f9 3.26MB / 3.26MB                                                   0.9s
+ => => sha256:ed15518f570754b8336aff46024845ecb67da1ab7729e4d5701a42fa4c19396b 286.26kB / 286.26kB                                               0.8s
+ => => extracting sha256:c41833b44d910632b415cd89a9cdaa4d62c9725dc56c99a7ddadafd6719960f9                                                        0.1s
+ => => sha256:b29e5e6ea2c40f4f8977f5886a35a943450cfcf6056b0ce97e32c6786bc5c119 156B / 156B                                                       1.0s
+ => => extracting sha256:ed15518f570754b8336aff46024845ecb67da1ab7729e4d5701a42fa4c19396b                                                        0.1s
+ => => extracting sha256:c2ac23d08d88d0780a5e2deff6f705ac18f198652ca7eb10eb7bb09a0c15f48a                                                        1.5s
+ => => extracting sha256:b29e5e6ea2c40f4f8977f5886a35a943450cfcf6056b0ce97e32c6786bc5c119                                                        0.0s
+ => [internal] load build context                                                                                                                0.7s
+ => => transferring context: 122.67kB                                                                                                            0.1s
+ => [2/9] WORKDIR /app                                                                                                                           0.3s
+ => [3/9] COPY . .                                                                                                                               0.1s
+ => [4/9] RUN apk --update --no-cache add build-base curl                                                                                        3.0s
+ => [5/9] RUN curl -L https://github.com/eficode/wait-for/archive/refs/tags/v2.2.3.tar.gz | tar xvz                                              1.1s
+ => [6/9] RUN curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-amd64.tar.gz | tar xvz                   2.5s
+ => [7/9] RUN go install github.com/go-delve/delve/cmd/dlv@v1.9.1                                                                               38.0s
+ => [8/9] RUN go install github.com/cosmtrek/air@v1.40.4                                                                                         3.7s
+ => [9/9] COPY src/database/migrations ./migrations                                                                                              0.0s
+ => exporting to image                                                                                                                           1.1s
+ => => exporting layers                                                                                                                          1.1s
+ => => writing image sha256:aafb24c51fb568b3401b8949d1290be5fe9bf78598673770507769dcd611988e                                                     0.0s
+ => => naming to docker.io/library/simple-bank-api                                                                                               0.0s
+[+] Running 4/4
+ ✔ Network simple-bank_default                                                                                                      Created      0.0s
+ ✔ Container simple-bank-db                                                                                                         Started      0.4s
+ ✔ Container simple-bank-api                                                                                                        Started      0.6s
 ```
 
 The -d option is for a detached mode allowing to run containers in the background, once the new containers has been created, it prints their names. Find out more at [docker's documentation site](https://docs.docker.com/v17.09/compose/reference/up/).
@@ -141,9 +151,9 @@ docker-compose ps -a
 Something like this will be displayed:
 
 ```shell
-CONTAINER ID   IMAGE                COMMAND                  CREATED              STATUS            PORTS                                            NAMES
-25a1dec94949   simple-bank-api      "/app/wait-for-2.2.3…"   About an hour ago   Up About an hour   0.0.0.0:6868->6868/tcp, 0.0.0.0:8080->8080/tcp   simple-bank-api
-ef67401d6d7b   postgres:14-alpine   "docker-entrypoint.s…"   About an hour ago   Up About an hour   0.0.0.0:5432->5432/tcp                           simple-bank-db
+CONTAINER ID   IMAGE                      COMMAND                  CREATED          STATUS         PORTS                                            NAMES
+4cdff63b6d2d   simple-bank-api            "/app/wait-for-2.2.3…"   49 seconds ago   Up 2 seconds   0.0.0.0:6868->6868/tcp, 0.0.0.0:8080->8080/tcp   simple-bank-api
+a480575b23c4   postgres:15.2-alpine3.17   "docker-entrypoint.s…"   49 seconds ago   Up 2 seconds   0.0.0.0:5432->5432/tcp                           simple-bank-db
 ```
 
 For accessing to any container just run:
