@@ -1,7 +1,7 @@
 ENV_FILE := ./.env
 
 ifeq ($(wildcard $(ENV_FILE)),)
-  $(error $(ENV_FILE) does not exist.)
+  $(error The file '$(ENV_FILE)' was not found.)
 else
 	include $(ENV_FILE)
 endif
