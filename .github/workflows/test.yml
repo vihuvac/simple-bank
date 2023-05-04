@@ -24,7 +24,7 @@ jobs:
 
     services:
       postgres:
-        image: postgres:14
+        image: postgres:15.2-alpine3.17
         env:
           POSTGRES_DB: ${{ env.POSTGRES_DB }}
           POSTGRES_PASSWORD: ${{ env.POSTGRES_PASSWORD }}
