@@ -27,8 +27,8 @@ services:
     restart: always
     depends_on:
       - postgres
-    entrypoint: [ "/app/wait-for-2.2.3/wait-for", "postgres:5432", "--", "/app/scripts/start.sh" ]
-    command: [ "air", "server", "--port 8080" ]
+    entrypoint: [ "/app/wait-for-2.2.4/wait-for", "postgres:5432", "--", "/app/scripts/start.sh" ]
+    command: [ "air" ]
 
 volumes:
   postgres_volume:
