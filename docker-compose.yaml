@@ -16,7 +16,8 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
-      - ./src:/app/src
+      - .:/app
+      - /app
     ports:
       - 8080:8080
       - 6868:6868
