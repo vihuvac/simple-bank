@@ -1,8 +1,6 @@
 # Build stage.
 FROM golang:1.20-alpine3.17 AS builder
 
-ENV GO111MODULE=on
-
 WORKDIR /app
 
 COPY . .
