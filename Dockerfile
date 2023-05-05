@@ -7,7 +7,7 @@ COPY . .
 
 RUN apk --update --no-cache add curl
 
-RUN go mod tidy && go mod download
+RUN go mod download && go mod verify
 
 RUN curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-amd64.tar.gz | tar xvz
 

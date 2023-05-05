@@ -6,7 +6,7 @@ COPY . .
 
 RUN apk --update --no-cache add build-base curl
 
-RUN go mod tidy && go mod download
+RUN go mod tidy && go mod download && go mod verify
 
 RUN curl -L https://github.com/eficode/wait-for/archive/refs/tags/v2.2.4.tar.gz | tar xvz
 RUN curl -L https://github.com/golang-migrate/migrate/releases/download/v4.15.2/migrate.linux-amd64.tar.gz | tar xvz
