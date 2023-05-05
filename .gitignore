@@ -3,6 +3,7 @@
 *.dll
 *.so
 *.dylib
+migrate
 
 # Output of the go coverage tool, specifically when used with LiteIDE
 *.out
@@ -12,7 +13,9 @@
 .env*
 
 # Dependency directories (remove the comment below to include it)
+migrations
 vendor
+wait-for-*
 
 # Text editors
 .vscode
