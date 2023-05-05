@@ -1,27 +1,43 @@
-root = "./src"
-testdata_dir = "testdata"
+# .air.toml file for Air
+# https://github.com/cosmtrek/air
+#
+# Working directory.
+root = "."
+
+# Temp directory to store the binary built.
 tmp_dir = "tmp"
 
+# File to monitor changes.
+include = ["src/**/*.go"]
+
+# Kill the binary and restart the app when `go.mod` or `go.sum` changes.
+restart = ["go.mod", "go.sum"]
+
+# Exclude directories or files.
+exclude_dir = ["docs", "eks", "scripts"]
+
+# Hot Reload mode. Available value is "legacy", "events".
 [build]
   args_bin = []
   bin = "./tmp/main"
-  cmd = "go build -o ./tmp/main ./src/main.go"
+  cmd = "go build -gcflags='all=-N -l' -o ./tmp/main ./src/main.go"
   delay = 1000
-  exclude_dir = ["assets", "tmp", "vendor", "testdata"]
+  enable_reload_templates = false
+  excluded_extensions = []
   exclude_file = []
-  exclude_regex = ["_test.go"]
+  exclude_regex = ["_test\\.go"]
   exclude_unchanged = false
   follow_symlink = false
-  full_bin = "dlv exec --accept-multiclient --log --headless --continue --listen :6868 --api-version 2 ./tmp/main"
-  include_dir = []
+  full_bin = "dlv exec ./tmp/main --accept-multiclient --log --headless --continue --listen :6868 --api-version 2"
+  include_dir = ["src"]
   include_ext = ["go", "tpl", "tmpl", "html"]
   kill_delay = "0s"
   log = "build-errors.log"
   send_interrupt = false
   stop_on_error = true
+  watch_delay = "100ms"
 
 [color]
-  app = ""
   build = "yellow"
   main = "magenta"
   runner = "green"

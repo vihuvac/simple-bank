@@ -2,7 +2,7 @@ version: "3.9"
 services:
   postgres:
     container_name: simple-bank-db
-    image: postgres:14-alpine
+    image: postgres:15.2-alpine3.17
     volumes:
       - postgres_volume:/var/lib/postgresql/data
     ports:
@@ -16,7 +16,8 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     volumes:
-      - ./src:/app/src
+      - .:/app
+      - /app
     ports:
       - 8080:8080
       - 6868:6868
@@ -27,8 +28,8 @@ services:
     restart: always
     depends_on:
       - postgres
-    entrypoint: [ "/app/wait-for-2.2.3/wait-for", "postgres:5432", "--", "/app/scripts/start.sh" ]
-    command: [ "air", "server", "--port 8080" ]
+    entrypoint: [ "/app/wait-for-2.2.4/wait-for", "postgres:5432", "--", "/app/scripts/start.sh" ]
+    command: [ "air" ]
 
 volumes:
   postgres_volume:
