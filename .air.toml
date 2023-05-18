@@ -8,7 +8,7 @@ root = "."
 tmp_dir = "tmp"
 
 # File to monitor changes.
-include = ["src/**/*.go"]
+include = ["src/**/*.go", "grpc/**/*.go"]
 
 # Kill the binary and restart the app when `go.mod` or `go.sum` changes.
 restart = ["go.mod", "go.sum"]
