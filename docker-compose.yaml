@@ -20,6 +20,7 @@ services:
       - /app
     ports:
       - 8080:8080
+      - 9090:9090
       - 6868:6868
     env_file:
       - ./.env

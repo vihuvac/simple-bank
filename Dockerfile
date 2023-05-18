@@ -26,7 +26,7 @@ COPY app.env .
 COPY scripts/start.sh .
 COPY src/database/migrations ./migrations
 
-EXPOSE 8080
+EXPOSE 8080 9090
 
 CMD [ "./main" ]
 ENTRYPOINT [ "./start.sh" ]

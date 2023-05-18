@@ -4,6 +4,7 @@ yellowColor := $(shell tput setaf 2)
 resetColor := $(shell tput sgr0)
 
 ENV_FILE := ./.env
+GRPC_SRC_PATH := grpc
 
 ifeq ($(wildcard $(ENV_FILE)),)
   $(info $(yellowColor)The file$(resetColor) $(redColor)$(ENV_FILE)$(resetColor) $(yellowColor)was not found.$(resetColor))
@@ -62,5 +63,17 @@ composeDown:
 composeDownAll:
 	docker-compose down -v && docker rmi -f simple-bank-api
 
+proto:
+	rm -rf $(GRPC_SRC_PATH)/pb/*.go && protoc \
+		--proto_path=$(GRPC_SRC_PATH)/proto \
+		--go_out=$(GRPC_SRC_PATH)/pb \
+		--go_opt=paths=source_relative \
+		--go-grpc_out=$(GRPC_SRC_PATH)/pb \
+		--go-grpc_opt=paths=source_relative \
+		$(GRPC_SRC_PATH)/proto/*.proto
 
-.PHONY: postgres createDB dropDB migrateUp migrateDown dbDocs dbSchema sqlc test server mock composeUp composeDown composeDownAll
+evans:
+	evans --host localhost --port 9090 -r repl
+
+
+.PHONY: postgres createDB dropDB migrateUp migrateDown dbDocs dbSchema sqlc test server mock composeUp composeDown composeDownAll proto evans

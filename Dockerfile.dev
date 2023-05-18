@@ -17,4 +17,4 @@ RUN go install github.com/cosmtrek/air@v1.43.0
 # Set migrations in the main directory.
 COPY src/database/migrations ./migrations
 
-EXPOSE 8080
+EXPOSE 8080 9090
